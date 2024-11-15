@@ -3,48 +3,30 @@ using UnityEngine.SceneManagement;
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private string selectableTag = "Selectable";
-    [SerializeField] private Material highlightMaterial;
-    [SerializeField] private Material defaultMaterial;
+    private IRayProvider _rayProvider;
+    private ISelector _selector;
+    private ISelectionResponse _selectionResponse;
 
-    private Transform _selection;
+    private Transform _currentSelection;
 
     private void Awake()
     {
+        _selectionResponse = GetComponent<ISelectionResponse>();
+        _selector = GetComponent<ISelector>();
+        _rayProvider = GetComponent<IRayProvider>();
         SceneManager.LoadScene("Environment", LoadSceneMode.Additive);
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
     private void Update()
     {
-        if (_selection != null)
-        {
-            var selectionRenderer = _selection.GetComponent<Renderer>();
-            if (selectionRenderer != null)
-            {
-                selectionRenderer.material = defaultMaterial;
-            }
-        }
+        if (_currentSelection != null)
+            _selectionResponse.OnDeselect(_currentSelection);
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        _selection = null;
-        if (Physics.Raycast(ray, out var hit))
-        {
-            var selection = hit.transform;
-            if (selection.CompareTag(selectableTag))
-            {
-                _selection = selection;
-            }
-        }
+        _selector.Check(_rayProvider.CreateRay());
+        _currentSelection = _selector.GetSelection();
 
-        if (_selection != null)
-        {
-            var selectionRenderer = _selection.GetComponent<Renderer>();
-            if (selectionRenderer != null)
-            {
-                selectionRenderer.material = highlightMaterial;
-            }
-        }
+        if (_currentSelection != null)
+            _selectionResponse.OnSelect(_currentSelection);
     }
 }
