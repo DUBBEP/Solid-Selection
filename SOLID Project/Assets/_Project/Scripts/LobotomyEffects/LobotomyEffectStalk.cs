@@ -21,7 +21,7 @@ public class LobotomyEffectStalk : MonoBehaviour, ILobotomyEffect
     {
         _currentSelection = null;
 
-        if (_selections.Contains(selection) && Random.Range(0, 3) == 0)
+        if (_selections.Contains(selection) && Random.Range(0, 10) == 0)
             _selections.Remove(selection);
 
         if (Random.Range(0, 25) == 0)
