@@ -9,9 +9,7 @@ public class LobotomySelectionResponse : MonoBehaviour, ISelectionResponse
     private GameObject lobotomyEffectsHolder;
 
     private List<ILobotomyEffect> _lobotomyEffects;
-
-    int randomValue = 0;
-    bool firstSelection = true;
+    private int randomValue = 0;
 
     private void Start()
     {
@@ -20,25 +18,12 @@ public class LobotomySelectionResponse : MonoBehaviour, ISelectionResponse
 
     public void OnSelect(Transform selection)
     {
-        if (firstSelection)
-        {
-            _lobotomyEffects[0].StartEffect(selection);
-            return;
-        }
-
         randomValue = Random.Range(0, _lobotomyEffects.Count);
         _lobotomyEffects[randomValue].StartEffect(selection);
     }
 
     public void OnDeselect(Transform selection)
     {
-        if (firstSelection)
-        {
-            _lobotomyEffects[0].StartEffect(selection);
-            firstSelection = false;
-            return;
-        }
-
         _lobotomyEffects[randomValue].StopEffect(selection);
     }
 
