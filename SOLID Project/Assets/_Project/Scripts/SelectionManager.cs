@@ -20,13 +20,21 @@ public class SelectionManager : MonoBehaviour
 
     private void Update()
     {
-        if (_currentSelection != null)
-            _selectionResponse.OnDeselect(_currentSelection);
-
         _selector.Check(_rayProvider.CreateRay());
-        _currentSelection = _selector.GetSelection();
+        var selection = _selector.GetSelection();
 
-        if (_currentSelection != null)
-            _selectionResponse.OnSelect(_currentSelection);
+
+        if (IsNewSelection(selection))
+        {
+            if (_currentSelection != null) _selectionResponse.OnDeselect(_currentSelection);
+            if (selection != null) _selectionResponse.OnSelect(selection);
+        }
+
+        _currentSelection = selection;
+    }
+
+    private bool IsNewSelection(Transform selection)
+    {
+        return _currentSelection != selection;
     }
 }

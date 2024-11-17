@@ -13,7 +13,7 @@ internal class HighlightSelectionResponse : MonoBehaviour, ISelectionResponse
             selectionRenderer.material = highlightMaterial;
         }
     }
-     
+
     public void OnDeselect(Transform selection)
     {
         var selectionRenderer = selection.GetComponent<Renderer>();
@@ -21,5 +21,6 @@ internal class HighlightSelectionResponse : MonoBehaviour, ISelectionResponse
         {
             selectionRenderer.material = defaultMaterial;
         }
+
     }
 }
