@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17348772e3da095458705f0675859ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetTimer: 40
+  resetTimer: 30
   resetSequence: {fileID: 1931944118}
 --- !u!1001 &1254306373
 PrefabInstance:
@@ -1409,7 +1409,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 67bf3496dc110564b9edc421884eea2a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.716
+  m_Volume: 0.896
   m_Pitch: 1
   Loop: 0
   Mute: 0
